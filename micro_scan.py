@@ -1,0 +1,186 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# Scrapes all data from closeouts and saves as a json file.
+
+
+# In[13]:
+
+
+from bs4 import BeautifulSoup
+import requests
+import re
+import discord
+import json
+
+
+# In[2]:
+
+
+baseURL = 'https://www.microcenter.com'
+closeoutsURL = 'https://www.microcenter.com/site/products/closeout.aspx'
+
+#ents
+storeID = '&storeid=145'
+itemsPerPage = '&rpp=96'
+
+
+# In[3]:
+
+
+page = requests.get(closeoutsURL)
+soup = BeautifulSoup(page.content, 'html.parser')
+
+
+# In[4]:
+
+
+hotdeals = soup.find(id="hotdeals")
+hotdealsList = hotdeals.find_all('div', class_="hotdealItem")
+len(hotdealsList)
+hotdealsLinks = []
+for hotdeal in hotdealsList:
+    hotdeal_h2 = hotdeal.find('h2')
+    hotdeal_text = hotdeal_h2.find('a').text
+    hotdeal_href = hotdeal_h2.find('a')['href']
+
+
+# ## TODO
+# 
+# - Multithread each link under closeouts and scrape all of the information.
+# - Handle multiple stores
+
+# Start with one section and build optimal URL. Then expand to multiple stores, then multiple sections per store.
+
+# In[5]:
+
+
+test_closeout_url='/search/search_results.aspx?N=4294966998,518&prt=&feature=139717'
+sectionURL = '{}{}{}{}'.format(baseURL, test_closeout_url, storeID, itemsPerPage)
+sectionURL = '{}{}'.format(sectionURL, '&myStore=false')
+sectionURL
+
+
+# ## cycling through pages
+# 
+# Find pattern to check how many pages are necessary. Then iterate through URLs.
+
+# In[6]:
+
+
+# returns a list of URLS from a single page
+def getItemsFromPage(soup):
+    productURLs = []
+    products = soup.find('article', class_='products col3')
+    products = products.find('ul')
+    products = products.find_all('li', class_='product_wrapper')
+    for product in products:
+        product = product.find('div', class_='pDescription compressedNormal2')
+        link = product.find('a')['href']
+        productURLs.append(link)
+    
+    return productURLs
+
+
+# In[10]:
+
+
+productURLs = []
+
+
+pagesEnt = '&page='
+pageCount=1
+while True:
+    testPageCounting = requests.get('{}{}{}'.format(sectionURL, pagesEnt, pageCount))
+    testSoup = BeautifulSoup(testPageCounting.content, 'html.parser')
+
+    if testSoup.find('article', class_='products col3') == None:
+        break
+
+    productURLs += getItemsFromPage(testSoup)    
+
+    print('Finished page', pageCount)
+    pageCount=pageCount+1
+
+len(productURLs)
+
+
+# ## TODO
+# - Separate count do we can categorize them by store
+# - Handle open box items properly
+# - Download images locally
+
+# In[7]:
+
+
+
+def genProductDict(test_url):
+    full_url = baseURL + test_url
+    productPage = requests.get(full_url)
+    productSoup = BeautifulSoup(productPage.content, 'html.parser')
+
+    details = productSoup.find(id='details')
+    details_header = details.find('h1')
+    details_span = details_header.find('span')
+
+    price = productSoup.find(id='pricing')
+    try:
+        price_float = float(price.text.strip()[1:])
+    except ValueError:
+        price_float = 'Unknown'
+    count = productSoup.find('span', class_='inventoryCnt')
+    
+    try:
+        count_int = int(re.sub("[^0-9]", "", count.text))
+    except ValueError:
+        count_int = 0      #out of stock
+    except AttributeError:
+        count_int = 0      #out of stock but open box available
+
+    inline_panel = productSoup.find('dl', class_="inline")
+    dds = inline_panel.find_all('dd') #0: SKU, #1: Model Number, #2: UPC
+
+    image = productSoup.find('img', class_='productImageZoom')
+    try:
+        imageURL = image['src']
+    except TypeError:
+        imageURL = ''
+    
+
+    product_dict = {
+        dds[0].text.strip() : {
+            'name' : details_span.text.strip(),
+            'price' : price_float,
+            'count' : count_int,
+            'sku': dds[0].text.strip(),
+            'modelnum': dds[1].text.strip(),
+            'upc' : dds[2].text.strip(),
+            'url' : full_url,
+            'image' : imageURL
+        }
+    }
+    return product_dict
+
+
+# In[114]:
+
+
+products_db = {}
+for url in productURLs:
+    print("Attempting", url)
+    products_db.update(genProductDict(url))
+    print("Success")
+len(products_db)
+
+
+# In[116]:
+
+
+products_db['369256']
+
+# In[ ]:
+# Dump dictionary to json for use for bot
+with open("products.json", "w") as out:
+    json.dump(products_db, out, indent=2)
+
+# %%
