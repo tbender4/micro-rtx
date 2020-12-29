@@ -84,7 +84,7 @@ def getItemsFromPage(soup):
 
 # In[10]:
 
-
+# check how many pages needed to cycle through.
 productURLs = []
 
 
@@ -111,8 +111,6 @@ len(productURLs)
 # - Download images locally
 
 # In[7]:
-
-
 
 def genProductDict(test_url):
     full_url = baseURL + test_url
@@ -164,7 +162,7 @@ def genProductDict(test_url):
 
 # In[114]:
 
-
+#does a mass update of all items
 products_db = {}
 for url in productURLs:
     print("Attempting", url)
@@ -172,11 +170,6 @@ for url in productURLs:
     print("Success")
 len(products_db)
 
-
-# In[116]:
-
-
-products_db['369256']
 
 # In[ ]:
 # Dump dictionary to json for use for bot

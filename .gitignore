@@ -1,2 +1,3 @@
 .vscode/*
 auth.py
+*pycache*
