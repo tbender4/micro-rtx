@@ -2,7 +2,14 @@ import discord
 import json
 from auth import token
 
+import datetime
+
 checkUsageMsg = "Usage: `check SKU_NUMBER1 SKU_NUMBER2 ... SKU_NUMBERN`"
+
+
+def dateTimeTest():
+
+    return datetime.datetime.now()
 
 
 def checkforChanges(product):
@@ -10,6 +17,9 @@ def checkforChanges(product):
     return False
 
 def generateEmbed(product):
+    
+    timestamp = product['timestamp']
+
     embed=discord.Embed(title=product['name'], url=product['url'], description="description goes here", color=0xff0000)
     embed.set_thumbnail(url=product['image'])
     embed.add_field(name="Price:", value=product['price'], inline=True)
@@ -17,7 +27,7 @@ def generateEmbed(product):
     embed.add_field(name="Quantity:", value=product['count'], inline=True)
     embed.add_field(name="Part #:", value=product['modelnum'], inline=True)
     embed.add_field(name="UPC:", value=product['upc'], inline=True)
-    embed.set_footer(text="Last updated: date goes here")
+    embed.set_footer(text=timestamp)
     return embed
 
 
@@ -59,8 +69,6 @@ async def on_message(message):
                 #checkForChanges(product)
                 await message.channel.send(checkUsageMsg)
 
+print(dateTimeTest()) 
 
-
-           
-
-client.run(token)
+# client.run(token)

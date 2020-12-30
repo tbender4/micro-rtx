@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 
 # Scrapes all data from closeouts and saves as a json file.
 
@@ -12,7 +10,7 @@ import requests
 import re
 import discord
 import json
-
+import datetime
 
 # In[2]:
 
@@ -35,8 +33,8 @@ soup = BeautifulSoup(page.content, 'html.parser')
 # In[4]:
 
 
-hotdeals = soup.find(id="hotdeals")
-hotdealsList = hotdeals.find_all('div', class_="hotdealItem")
+# hotdeals = soup.find(id="hotdeals")
+hotdealsList = soup.find_all('div', class_="hotdealItem")
 len(hotdealsList)
 hotdealsLinks = []
 for hotdeal in hotdealsList:
@@ -74,8 +72,9 @@ def getItemsFromPage(soup):
     products = soup.find('article', class_='products col3')
     products = products.find('ul')
     products = products.find_all('li', class_='product_wrapper')
+    print(len(products))
     for product in products:
-        product = product.find('div', class_='pDescription compressedNormal2')
+        product = product.find('div', class_=re.compile('^pDescription compressedNorm*'))
         link = product.find('a')['href']
         productURLs.append(link)
     
@@ -143,7 +142,7 @@ def genProductDict(test_url):
         imageURL = image['src']
     except TypeError:
         imageURL = ''
-    
+   
 
     product_dict = {
         dds[0].text.strip() : {
@@ -154,7 +153,8 @@ def genProductDict(test_url):
             'modelnum': dds[1].text.strip(),
             'upc' : dds[2].text.strip(),
             'url' : full_url,
-            'image' : imageURL
+            'image' : imageURL,
+            'timestamp' : datetime.datetime.now().__str__   #json serializable
         }
     }
     return product_dict
