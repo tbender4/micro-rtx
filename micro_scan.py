@@ -154,7 +154,7 @@ def genProductDict(test_url):
             'upc' : dds[2].text.strip(),
             'url' : full_url,
             'image' : imageURL,
-            'timestamp' : datetime.datetime.now().__str__   #json serializable
+            'timestamp' : datetime.datetime.now()  #json serializable
         }
     }
     return product_dict
@@ -168,12 +168,14 @@ for url in productURLs:
     print("Attempting", url)
     products_db.update(genProductDict(url))
     print("Success")
-len(products_db)
 
+print(list(products_db.values())[0])
 
 # In[ ]:
 # Dump dictionary to json for use for bot
 with open("products.json", "w") as out:
-    json.dump(products_db, out, indent=2)
+    print('Dumping to JSON file')
+    json.dump(products_db, out, indent=2, default=str)
+    print('Success')
 
 # %%

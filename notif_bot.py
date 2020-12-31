@@ -6,32 +6,27 @@ import datetime
 
 checkUsageMsg = "Usage: `check SKU_NUMBER1 SKU_NUMBER2 ... SKU_NUMBERN`"
 
-
-def dateTimeTest():
-
-    return datetime.datetime.now()
-
-
 def checkforChanges(product):
     #make it check for changes and report
     return False
 
 def generateEmbed(product):
     
-    timestamp = product['timestamp']
+    old_time = datetime.datetime.strptime(product['timestamp'], '%Y-%m-%d %H:%M:%S.%f')
+    timestamp = old_time.strftime("%a %m/%d/%y  %I:%M %p")
 
-    embed=discord.Embed(title=product['name'], url=product['url'], description="description goes here", color=0xff0000)
+    embed=discord.Embed(title=product['name'], url=product['url'], color=0xff0000)
     embed.set_thumbnail(url=product['image'])
     embed.add_field(name="Price:", value=product['price'], inline=True)
     embed.add_field(name="SKU:", value=product['sku'], inline=True)
     embed.add_field(name="Quantity:", value=product['count'], inline=True)
     embed.add_field(name="Part #:", value=product['modelnum'], inline=True)
     embed.add_field(name="UPC:", value=product['upc'], inline=True)
-    embed.set_footer(text=timestamp)
+    embed.set_footer(text='Last updated: {}'.format(timestamp))
     return embed
 
 
-
+# start of file
 with open('products.json') as file:
     products_db = json.load(file)
 
@@ -55,7 +50,7 @@ async def on_message(message):
         except KeyError:
             await message.channel.send("I don't have that SKU.")
 
-    if message.content.startswith('check'):
+    if message.content.startswith('update'):
         # check 688937
         msgSplit = message.content.split()
         if len(msgSplit) == 1:
@@ -69,6 +64,4 @@ async def on_message(message):
                 #checkForChanges(product)
                 await message.channel.send(checkUsageMsg)
 
-print(dateTimeTest()) 
-
-# client.run(token)
+client.run(token)
