@@ -20,7 +20,7 @@
       <tbody>
         <% for(var key in products) { %>
         <tr>
-          <td><button onclick="decrease(<%= key %>) ">Decrease by 1.</button>
+          <td><button onclick="<% decrease( key ) %>">Decrease by 1.</button>
           <td><%= products[key]["count"] %></td>
           <td><%= products[key]["sku"] %></td>
           <td><img src="<%= products[key]["image"] %>"</td>

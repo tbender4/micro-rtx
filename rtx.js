@@ -11,13 +11,14 @@ app.set('view engine', 'ejs');
 let jsonData = fs.readFileSync('products.json');
 
 function decrease(key) {
-  console.log("decreased by 1 for" + key);
+  console.log("decreased by 1 for " + key);
 }
 
 app.get("/", (req, res) => {
   let products = JSON.parse(jsonData);
   res.render("index", {
   products: products,
+  decrease: decrease
   });
 });
 
