@@ -1,3 +1,4 @@
 .vscode/*
 auth.py
 *pycache*
+*.swp
