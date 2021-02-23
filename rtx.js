@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
 //recieve request from client to decrease sku quantity
 app.post('/decrease', function(req, res) {
   decrease(req.body.sku);
+  res.send();
 });
 
 app.listen(3000, () => {

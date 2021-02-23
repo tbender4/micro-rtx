@@ -1,3 +1,5 @@
+//const { response } = require("express");
+
 console.log('client js loaded');
 
 function decreaseSKU(target_sku) {
@@ -8,6 +10,7 @@ function decreaseSKU(target_sku) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ sku: target_sku })
-  });
-
+  })
+  .then( response => {console.log(response)}
+  );
 }
