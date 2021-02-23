@@ -11,15 +11,23 @@ app.use(express.static(path.join(__dirname, "./client")));
 
 app.set('view engine', 'ejs');
 
+let products = {};
+
 function decrease(key) {
-  console.log("decreased by 1 for " + key);
+  products[key].count = products[key].count - 1;
+  //TODO: make this async
+  fs.writeFile('products.json', products, (err) => {
+    if (err) return;
+    console.log('Wrote', key, 'to disk.');
+    return;
+  });
 }
 
 let jsonData = fs.readFileSync('products.json');
 
 //send products json to ejs file
 app.get("/", (req, res) => {
-  let products = JSON.parse(jsonData);
+  products = JSON.parse(jsonData);
   res.render("index", {
   products: products,
   });
@@ -28,7 +36,7 @@ app.get("/", (req, res) => {
 //recieve request from client to decrease sku quantity
 app.post('/decrease', function(req, res) {
   decrease(req.body.sku);
-  res.send();
+  res.send('OK');
 });
 
 app.listen(3000, () => {

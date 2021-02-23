@@ -11,6 +11,16 @@ function decreaseSKU(target_sku) {
     },
     body: JSON.stringify({ sku: target_sku })
   })
-  .then( response => {console.log(response)}
+  .then ( response => {
+    console.log(response);
+    if(response.ok) {
+      console.log('successfully decreased', target_sku);
+      let td_quantity = document.getElementById(target_sku).children[1];
+      td_quantity.innerHTML =parseInt(td_quantity.textContent)-1;
+    }
+    else {
+      alert('Request failed.');
+    }
+  }
   );
-}
+};

@@ -19,9 +19,9 @@
       </thead>
       <tbody>
         <% for(var key in products) { %>
-        <tr>
+        <tr id="<%= key %>">
           <td><button onclick="decreaseSKU(<%= key %>)">Decrease by 1.</button>
-          <td><%= products[key]["count"] %></td>
+          <td class="quantity"><%= products[key]["count"] %></td>
           <td><%= products[key]["sku"] %></td>
           <td><img src="<%= products[key]["image"] %>"</td>
           <td><a href=<%= products[key]["url"] %> target="_blank"> <%= products[key]["name"]; %></a></td>
