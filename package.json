@@ -1,0 +1,24 @@
+{
+  "name": "micro-rtx",
+  "version": "1.0.0",
+  "description": "inventory tracking system",
+  "main": "rtx.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbender4/micro-rtx.git"
+  },
+  "author": "Thomas Bender",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tbender4/micro-rtx/issues"
+  },
+  "homepage": "https://github.com/tbender4/micro-rtx#readme"
+}
