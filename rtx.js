@@ -26,10 +26,10 @@ function decrease(key) {
   });
 }
 
-let jsonData = fs.readFileSync('products.json');
 
 //send products json to ejs file
 app.get("/", (req, res) => {
+  let jsonData = fs.readFileSync('products.json');
   products = JSON.parse(jsonData);
   res.render("index", {
   products: products,
