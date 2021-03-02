@@ -26,18 +26,21 @@ function decrease(key) {
   });
 }
 
-
+let whitelistedProducts = {};
 //send products json to ejs file
 app.get("/", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
   products = JSON.parse(jsonData);
   res.render("index", {
-  products: products,
+  products: products
   });
 });
 
 app.get("/addskus", (req, res) => {
-  res.render("addskus");
+  res.render("addskus", {
+    products: {includedProducts: products['107870']}
+  });
+  
 });
 
 //recieve request from client to decrease sku quantity
