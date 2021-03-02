@@ -13,6 +13,7 @@ app.set('view engine', 'ejs');
 
 let products = {};
 
+
 function decrease(key) {
   products[key].count = products[key].count - 1;
   //TODO: see if sync/async is a problem
@@ -36,9 +37,12 @@ app.get("/", (req, res) => {
   });
 });
 
+let includedProducts = {};
+
 app.get("/addskus", (req, res) => {
   res.render("addskus", {
-    products: {includedProducts: products['107870']}
+    //product placeholder
+    includedProducts: {'107870': products['107870']}
   });
   
 });

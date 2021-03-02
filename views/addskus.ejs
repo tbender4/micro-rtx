@@ -21,7 +21,11 @@
     
     <% for(let p in includedProducts) { %>
       <div class="product">
-        
+        <%= p %>
+      <script>
+      console.log(<%= p %>);
+      console.log(JSON.stringify(<%= p %>));
+      </script>
       </div>
     <% } %>
 
