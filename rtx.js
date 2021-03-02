@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
 let includedProducts = {};
 
 app.get("/addskus", (req, res) => {
+  console.log(products ['107870']);
   res.render("addskus", {
     //product placeholder
     includedProducts: {'107870': products['107870']}
