@@ -19,15 +19,14 @@
     </div>
 
     
-    <% for(let p in includedProducts) { %>
+    <!-- <% for(let p in includedProducts) { %> --->
       <div class="product">
-        <%= p %>
       <script>
-      console.log(<%= p %>);
-      console.log((<%= p %>));
+        let test = '<%= includedProducts %>';
+        console.log(test);
       </script>
       </div>
-    <% } %>
+    <!-- <% } %> --->
 
     <script src="addskus.js"></script>
   </body>
