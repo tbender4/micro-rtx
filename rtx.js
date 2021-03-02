@@ -37,9 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/addskus", (req, res) => {
-  products = JSON.parse(jsonData);
-  res.render("addskus", {
-  });
+  res.render("addskus");
 });
 
 //recieve request from client to decrease sku quantity
