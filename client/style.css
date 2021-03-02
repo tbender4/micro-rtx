@@ -1,3 +1,28 @@
+nav {
+}
+
+nav ul {
+  display: flex;
+}
+
+nav li {
+  padding: 10px 20px;
+  list-style-type: none;
+  background-color: #494b64;
+  border-right: 2px solid white;
+}
+
+nav a {
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Lato', sans-serif;
+}
+
+nav li:hover {
+  background-color: #61637d;
+
 img {
   width: 100px;
   height: auto;

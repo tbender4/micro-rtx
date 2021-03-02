@@ -16,10 +16,11 @@ let products = {};
 function decrease(key) {
   products[key].count = products[key].count - 1;
   //TODO: make this async
+  
   fs.writeFile('products.json', products, (err) => {
-    if (err) return;
+    if (err) return 'OK';
     console.log('Wrote', key, 'to disk.');
-    return;
+    returnkk;
   });
 }
 
@@ -33,10 +34,16 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/addskus", (req, res) => {
+  products = JSON.parse(jsonData);
+  res.render("addskus", {
+  });
+});
+
 //recieve request from client to decrease sku quantity
 app.post('/decrease', function(req, res) {
-  decrease(req.body.sku);
-  res.send('OK');
+  res.send(decrease(req.body.sku));
+//  res.send('OK');
 });
 
 app.listen(3000, () => {
