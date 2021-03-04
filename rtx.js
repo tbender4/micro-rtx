@@ -43,7 +43,7 @@ let includedProducts = {};
 app.get("/addskus", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
   products = JSON.parse(jsonData);
-  includedProducts = {'107870': products};
+  includedProducts = {'107870': products['107870']};
   console.log(includedProducts['107870']);
 
   res.render("addskus", {
