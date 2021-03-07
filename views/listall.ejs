@@ -6,15 +6,15 @@
   <body>
 
     <%- include('header') %>
-    
-    <h1>Micro RTX Tracker</h1>
-    <p><b>Instructions: </b>Add SKUs to track for the day on the Edit SKUs page. Then return here to manage quantities.</p>
-    <br><br>
+
+    <button>Refresh SKUs</button>
+    <div id="current-date">Last updated: </div>
+    <div id="log">Logging and thing</div>
+
+    <br>
     <table> 
       <thead>
         <tr>
-          <th></th>
-          <th>Quantity</th>
           <th>SKU</th>
           <th></th>
           <th>Name</th>
@@ -25,11 +25,6 @@
       <tbody>
         <% for(var key in products) { %>
         <tr id="<%= key %>">
-          <td>
-            <button onclick="decreaseSKU(<%= key %>)">Decrease by 1</button>
-            <button>^</button>
-          </td>
-          <td class="quantity"><%= products[key]["count"] %></td>
           <td class="bold"><%= products[key]["sku"] %></td>
           <td><img src="<%= products[key]["image"] %>"</td>
           <td id="name"><a href=<%= products[key]["url"] %> target="_blank"> <%= products[key]["name"]; %></a></td>
@@ -39,6 +34,6 @@
         <% } %>
       </tbody>
     </table>
-     <script src="client.js"></script> 
+     <script src="addskus.js"></script> 
   </body>
 </html>

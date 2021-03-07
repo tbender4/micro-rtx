@@ -1,7 +1,9 @@
+//used for both managing and adding skus
+
 let todayDate = new Date(); //gets today's date
 let todayDateFormatted = todayDate.toLocaleDateString();
 
 let date_div = document.getElementById("current-date");
 let date_text = document.createTextNode(todayDateFormatted);
-
 date_div.appendChild(date_text);
+

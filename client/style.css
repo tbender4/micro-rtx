@@ -7,7 +7,8 @@ nav ul {
 }
 
 nav li {
-  padding: 10px 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   list-style-type: none;
   background-color: #494b64;
   border-right: 2px solid white;
@@ -18,13 +19,42 @@ nav a {
   color: white;
   text-decoration: none;
   font-size: 20px;
-  font-family: 'Lato', sans-serif;
 }
 
 nav li:hover {
   background-color: #61637d;
+}
 
+button {
+  font-size: 14px;
+  padding: 5px 5px;
+}
 img {
   width: 100px;
   height: auto;
+}
+
+#log {
+  width: 600px;
+  height: 250px;
+  overflow-y: auto;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#name {
+  width: 800px;
+}
+
+td.bold {
+  font-weight: 700;
+}
+
+.model {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.right {
+  text-align: right;
 }

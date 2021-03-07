@@ -4,12 +4,7 @@
   </head>
 
   <body>
-    <nav>
-      <ul>
-        <li> <a href="/">Home</a> </li>
-        <li> <a href="/addskus">Add SKUs</a> </li>
-      </ul>
-    </nav>
+    <%- include('header') %>
 
     <div id="current-date">Current Date:</div>
     <br>
@@ -18,8 +13,7 @@
       <button id='search-sku-btn'>Add SKU</button>
     </div>
 
-    <div id="added-products"> 
-    </div>
+      <table id="added-products" ></table>
 
     <script src="addskus.js"></script>
   </body>

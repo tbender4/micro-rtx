@@ -38,6 +38,15 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/listall", (req, res) => {
+  let jsonData = fs.readFileSync('products.json');
+  products = JSON.parse(jsonData);
+  res.render("listall", {
+  products: products
+  });
+});
+
+
 let includedProducts = {};
 
 app.get("/addskus", (req, res) => {
