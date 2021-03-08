@@ -2,6 +2,7 @@
 
 console.log('client js loaded');
 
+
 function decreaseSKU(target_sku) {
   console.log('decreasing', target_sku, 'by one');
 
@@ -20,7 +21,9 @@ function decreaseSKU(target_sku) {
       
       let td_quantity = document.getElementById(target_sku).children[1];
       td_quantity.innerHTML =parseInt(td_quantity.textContent)-1;
+      
       console.log('successfully decreased', target_sku);
+      
     }
     else {
       alert('Request failed.');

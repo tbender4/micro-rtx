@@ -58,3 +58,23 @@ td.bold {
 .right {
   text-align: right;
 }
+
+.quantity {
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #c8c9d0 ;
+}
+
+td.sku {
+  padding-right: 10px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+#result {
+  display: flex;
+}

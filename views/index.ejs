@@ -8,21 +8,21 @@
     <%- include('header') %>
     
     <h1>Micro RTX Tracker</h1>
-    <p><b>Instructions: </b>Add SKUs to track for the day on the Edit SKUs page. Then return here to manage quantities.</p>
+    <p><b>Instructions:</b> Add SKUs to track for the day on the Edit SKUs page. Then return here to manage quantities.</p>
     <br><br>
     <table> 
       <thead>
         <tr>
           <th></th>
           <th>Quantity</th>
-          <th>SKU</th>
+          <th class="sku">SKU</th>
           <th></th>
           <th>Name</th>
           <th>Price</th>
           <th class="model">Model No.</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="body-skus">
         <% for(var key in products) { %>
         <tr id="<%= key %>">
           <td>
@@ -30,8 +30,8 @@
             <button>^</button>
           </td>
           <td class="quantity"><%= products[key]["count"] %></td>
-          <td class="bold"><%= products[key]["sku"] %></td>
-          <td><img src="<%= products[key]["image"] %>"</td>
+          <td class="bold sku"><%= products[key]["sku"] %></td>
+          <td class="img"><img src="<%= products[key]["image"] %>"</td>
           <td id="name"><a href=<%= products[key]["url"] %> target="_blank"> <%= products[key]["name"]; %></a></td>
           <td class="bold right"><%= products[key]["price"] %></td>
           <td class="model"><%= products[key]["modelnum"] %></td>
