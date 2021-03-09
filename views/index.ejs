@@ -10,6 +10,41 @@
     <h1>Micro RTX Tracker</h1>
     <p><b>Instructions:</b> Add SKUs to track for the day on the Edit SKUs page. Then return here to manage quantities.</p>
     <br><br>
+
+    <h2>Available SKUs</h2>
+    <table> 
+      <thead>
+        <tr>
+          <th></th>
+          <th>Quantity</th>
+          <th class="sku">SKU</th>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th class="model">Model No.</th>
+        </tr>
+      </thead>
+      <tbody id="body-skus">
+        <% for(var key in whitelisted) { %>
+        <tr id="<%= key %>">
+          <td>
+            <button onclick="decreaseSKU(<%= key %>)">Decrease by 1</button>
+            <button>^</button>
+          </td>
+          <td class="quantity"><%= whitelisted[key]["count"] %></td>
+          <td class="bold sku"><%= whitelited[key]["sku"] %></td>
+          <td class="img"><img src="<%= whitelisted[key]["image"] %>"</td>
+          <td id="name"><a href=<%= whitelisted[key]["url"] %> target="_blank"> <%= products[key]["name"]; %></a></td>
+          <td class="bold right"><%= whitelisted[key]["price"] %></td>
+          <td class="model"><%= whitelisted[key]["modelnum"] %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <br><br>
+
+    <h2>All SKUs</h2>
     <table> 
       <thead>
         <tr>

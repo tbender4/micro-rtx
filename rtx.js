@@ -12,13 +12,10 @@ app.use(express.static(path.join(__dirname, "./client")));
 
 app.set('view engine', 'ejs');
 
-let products = {};
-
-
 function decrease(key) {
   products[key].count = products[key].count - 1;
   //TODO: see if sync/async is a problem
-  fs.writeFile('products.json', JSON.stringify(products), (err) => {
+  fs.writeFile('products.json', JSON.stringify(products, null, 2), (err) => {
     if (err) {
       console.log('Failed to write to disk');
     }
@@ -28,36 +25,38 @@ function decrease(key) {
   });
 }
 
-let whitelistedProducts = {};
+let whitelisted = {};
+let products = {};
+
 //send products json to ejs file
 app.get("/", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
+  let whitelistedData = fs.readFileSync('whitelisted.json');
   products = JSON.parse(jsonData);
   res.render("index", {
+  whitelisted: whitelisted,
   products: products
   });
 });
 
 app.get("/listall", (req, res) => {
+  let whitelistedData = fs.readFileSync('whitelisted.json');
   let jsonData = fs.readFileSync('products.json');
+
   products = JSON.parse(jsonData);
+  whitelisted =
   res.render("listall", {
   products: products
   });
 });
 
-
-let includedProducts = {};
-
 app.get("/addskus", (req, res) => {
+  let whitelistedData = fs.readFileSync('whitelisted.json');
   let jsonData = fs.readFileSync('products.json');
+
   products = JSON.parse(jsonData);
-  includedProducts = {'107870': products['107870']};
-  console.log(includedProducts['107870']);
 
   res.render("addskus", {
-    //product placeholder
-    includedProducts: includedProducts
   });
 });
 
