@@ -9,16 +9,18 @@
     <div id="current-date">Current Date:</div>
     <br>
     <!--- TODO: Add client side input validation-->
-    <form action="/add" method="POST">
-      <input type="search" name="sku">
-      <button type="submit" id='search-sku'>Add SKU</button>
-    </form>
+    <!--- form reloads page. work around with fetch()-->
+    <div>
+      <input type="search" id="req-sku">
+      <button id='search-sku'>Add SKU</button>
+    </div>
 
     <!--- Brings up info when user searches SKU.-->
     <div id="result">
 
     </div>
 
+    <br><br>
     <!--- Added SKUs -->
     <table id="whitelist-products"> 
       <thead>
