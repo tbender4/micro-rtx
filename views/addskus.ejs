@@ -8,15 +8,40 @@
 
     <div id="current-date">Current Date:</div>
     <br>
-    <div>
-      <input type="search" id="search-sku">
-      <button id='search-sku-btn'>Add SKU</button>
+    <!--- TODO: Add client side input validation-->
+    <form action="/add" method="POST">
+      <input type="search" name="sku">
+      <button type="submit" id='search-sku'>Add SKU</button>
+    </form>
+
+    <!--- Brings up info when user searches SKU.-->
+    <div id="result">
+
     </div>
 
-    <div id="result">
-      
-    </div>
-      <table id="added-products" ></table>
+    <!--- Added SKUs -->
+    <table id="whitelist-products"> 
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th class="model">Model No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var key in whitelisted) { %>
+        <tr id="<%= key %>">
+          <td class="bold"><%= whitelisted[key]["sku"] %></td>
+          <td><img src="<%= whitelisted[key]["image"] %>"</td>
+          <td id="name"><a href=<%= whitelisted[key]["url"] %> target="_blank"> <%= whitelisted[key]["name"]; %></a></td>
+          <td class="bold right"><%= whitelisted[key]["price"] %></td>
+          <td class="model"><%= whitelisted[key]["modelnum"] %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
 
     <script src="addskus.js"></script>
   </body>

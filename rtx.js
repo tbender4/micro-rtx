@@ -33,8 +33,11 @@ app.get("/", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
   let whitelistedData = fs.readFileSync('whitelisted.json');
   products = JSON.parse(jsonData);
+
+  let test = { '107870': products['107870'] };
+  
   res.render("index", {
-  whitelisted: whitelisted,
+  whitelisted: test,
   products: products
   });
 });
@@ -44,8 +47,9 @@ app.get("/listall", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
 
   products = JSON.parse(jsonData);
-  whitelisted =
+  let test = { '107870': products['107870'] };
   res.render("listall", {
+  whitelisted: test,
   products: products
   });
 });
@@ -55,8 +59,10 @@ app.get("/addskus", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
 
   products = JSON.parse(jsonData);
+  let test = { '107870': products['107870'] };
 
   res.render("addskus", {
+    whitelisted: test
   });
 });
 
@@ -64,6 +70,13 @@ app.get("/addskus", (req, res) => {
 app.post('/decrease', function(req, res) {
   res.send(decrease(req.body.sku));
 //  res.send('OK');
+});
+
+//adds SKU receieved
+app.post('/add', function(req, res) {
+  console.log(req.body);
+  //res.send('OK');
+  res.end();
 });
 
 app.listen(3000, () => {
