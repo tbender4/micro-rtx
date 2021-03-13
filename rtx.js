@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
   let whitelistedData = fs.readFileSync('whitelisted.json');
   products = JSON.parse(jsonData);
 
-  let test = { '107870': products['107870'] };
+  let test = { '099580': products['099580'] };
   
   res.render("index", {
   whitelisted: test,
@@ -47,7 +47,7 @@ app.get("/listall", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
 
   products = JSON.parse(jsonData);
-  let test = { '107870': products['107870'] };
+  let test = { '099580': products['099580'] };
   res.render("listall", {
   whitelisted: test,
   products: products
@@ -59,7 +59,7 @@ app.get("/addskus", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
 
   products = JSON.parse(jsonData);
-  let test = { '107870': products['107870'] };
+  let test = { '099580': products['099580'] };
 
   res.render("addskus", {
     whitelisted: test
