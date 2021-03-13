@@ -16,8 +16,31 @@
     </div>
 
     <!--- Brings up info when user searches SKU.-->
-    <div id="result">
-
+    <table id="whitelist-products"> 
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th class="model">Model No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="confirm-sku-tr">
+          <td class="bold"></td>
+          <td></td>
+          <td id="name"></td>
+          <td class="bold right"></td>
+          <td class="model"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="confirm-area" hidden>
+      <label for="add-quantity"> Enter Quantity:</label>
+      <input type="text" id="add-quantity">
+      <button id="confirm-add">Yes</button>
+      <button id="cancel-add">Cancel</button>
     </div>
 
     <br><br>
