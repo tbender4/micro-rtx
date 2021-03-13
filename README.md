@@ -4,9 +4,11 @@ A inventory web app for inventory at Micro Center.
 
 **NOTE:** Still very early in development.
 
-![Add](https://raw.githubusercontent.com/tbender4/micro-rtx/main/screenshots/add.png)
-![Home](https://raw.githubusercontent.com/tbender4/micro-rtx/main/screenshots/home.png)
-![Manage](https://raw.githubusercontent.com/tbender4/micro-rtx/main/screenshots/manage.png)
+![Add](https://raw.githubusercontent.com/tbender4/micro-rtx/main/screenshots/add.png) <!-- .element height="50%" width="50%" -->
+![Home](https://raw.githubusercontent.com/tbender4/micro-rtx/main/screenshots/home.png) <!-- .element height="50%" width="50%" -->
+
+![Manage](https://raw.githubusercontent.com/tbender4/micro-rtx/main/screenshots/manage.png) <!-- .element height="50%" width="50%" -->
+
 
 ## About
 
