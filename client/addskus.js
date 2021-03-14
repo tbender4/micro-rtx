@@ -2,10 +2,13 @@
 
 
 function getSKUInfo() {
-  //changes all TDs info
+  //changes all TDs
   
   let userSKU = document.getElementById("req-sku").value;
   let confirmSKUTr = document.getElementById("confirm-sku-tr");
+
+  console.log(userSKU);
+  console.log()
 
   let skuTDs = confirmSKUTr.getElementsByTagName("td");
   console.log(skuTDs.length)
@@ -16,8 +19,20 @@ function getSKUInfo() {
   skuTDs[3].innerHTML = "pricehere";
   skuTDs[4].innerHTML = "modelhere";
 
-  let quantityDiv = document.getElementById("confirm-area")
+  addSKUTable.hidden = false;
   quantityDiv.hidden = false;
+}
+
+function cancelAddingSku() {
+  quantityDiv.hidden = true;
+  addSKUTable.hidden = true;
+}
+
+function confirmAddingSku() {
+  //TODO: Implement SKU being added
+  console.log("SKU Added");
+  quantityDiv.hidden = true;
+  addSKUTable.hidden = true;
 }
 
 let todayDate = new Date(); //gets today's date
@@ -31,4 +46,9 @@ date_div.appendChild(date_text);
 let btn = document.getElementById("search-sku");
 btn.addEventListener("click", getSKUInfo);
 
-
+let addSKUTable =  document.getElementById("whitelist-products");
+let quantityDiv = document.getElementById("confirm-area");
+let confirmBtn = document.getElementById("confirm-add");
+let cancelBtn = document.getElementById("cancel-add");
+cancelBtn.addEventListener("click", cancelAddingSku);
+confirmBtn.addEventListener("click", confirmAddingSku);
