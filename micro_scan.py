@@ -1,14 +1,15 @@
 
 # Scrapes all data from closeouts and saves as a json file.
 
+# 3/14/21 Editing this to scrape only 
+
 
 # In[13]:
-
 
 from bs4 import BeautifulSoup
 import requests
 import re
-import discord
+# import discord
 import json
 import datetime
 
@@ -16,7 +17,8 @@ import datetime
 
 
 baseURL = 'https://www.microcenter.com'
-closeoutsURL = 'https://www.microcenter.com/site/products/closeout.aspx'
+mcURL = 'https://www.microcenter.com/search/search_results.aspx?Ntk=all&sortby=match&N=4294966937&myStore=false'
+
 
 #ents
 storeID = '&storeid=145'
@@ -26,7 +28,7 @@ itemsPerPage = '&rpp=96'
 # In[3]:
 
 
-page = requests.get(closeoutsURL)
+page = requests.get(mcURL)
 soup = BeautifulSoup(page.content, 'html.parser')
 
 
@@ -34,13 +36,13 @@ soup = BeautifulSoup(page.content, 'html.parser')
 
 
 # hotdeals = soup.find(id="hotdeals")
-hotdealsList = soup.find_all('div', class_="hotdealItem")
-len(hotdealsList)
-hotdealsLinks = []
-for hotdeal in hotdealsList:
-    hotdeal_h2 = hotdeal.find('h2')
-    hotdeal_text = hotdeal_h2.find('a').text
-    hotdeal_href = hotdeal_h2.find('a')['href']
+# hotdealsList = soup.find_all('div', class_="hotdealItem")
+# len(hotdealsList)
+# hotdealsLinks = []
+# for hotdeal in hotdealsList:
+#     hotdeal_h2 = hotdeal.find('h2')
+#     hotdeal_text = hotdeal_h2.find('a').text
+#     hotdeal_href = hotdeal_h2.find('a')['href']
 
 
 # ## TODO
@@ -53,10 +55,9 @@ for hotdeal in hotdealsList:
 # In[5]:
 
 
-test_closeout_url='/search/search_results.aspx?N=4294966998,518&prt=&feature=139717'
-sectionURL = '{}{}{}{}'.format(baseURL, test_closeout_url, storeID, itemsPerPage)
-sectionURL = '{}{}'.format(sectionURL, '&myStore=false')
-sectionURL
+# test_closeout_url='/search/search_results.aspx?N=4294966998,518&prt=&feature=139717'
+sectionURL = '{}{}{}'.format(mcURL, storeID, itemsPerPage)
+print(sectionURL)
 
 
 # ## cycling through pages
@@ -111,6 +112,8 @@ len(productURLs)
 
 # In[7]:
 
+#TODO: Understand why it fails here.
+
 def genProductDict(test_url):
     full_url = baseURL + test_url
     productPage = requests.get(full_url)
@@ -125,6 +128,8 @@ def genProductDict(test_url):
         price_float = float(price.text.strip()[1:])
     except ValueError:
         price_float = 'Unknown'
+    except AttributeError:
+        price_float = 'Unknown_attrib'
     count = productSoup.find('span', class_='inventoryCnt')
     
     try:
