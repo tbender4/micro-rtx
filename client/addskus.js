@@ -1,19 +1,37 @@
 //used for both managing and adding skus
 
-
+//passed in: whitelisted = {}
+//           products    = {}
+//           
+ 
 function getSKUInfo() {
   //changes all TDs
   
   let userSKU = document.getElementById("req-sku").value;
   let confirmSKUTr = document.getElementById("confirm-sku-tr");
 
+  fetch('/querysku', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify( {sku: userSKU } )
+  })
+  .then ( response => {
+    console.log(response);
+    if (response.ok) {
+      console.log(response.body);
+      console.log('did it work?')
+    }
+    else {
+      alert('sku query failed');
+    }
+  })
   console.log(userSKU);
-  console.log()
+ 
 
   let skuTDs = confirmSKUTr.getElementsByTagName("td");
   console.log(skuTDs.length)
   console.log(skuTDs)
-  skuTDs[0].innerHTML = "sku-here";
+  skuTDs[0].innerHTML = 'sku here';
   skuTDs[1].innerHTML = "img-here";
   skuTDs[2].innerHTML = "name-here";
   skuTDs[3].innerHTML = "pricehere";
@@ -21,6 +39,8 @@ function getSKUInfo() {
 
   addSKUTable.hidden = false;
   quantityDiv.hidden = false;
+
+
 }
 
 function cancelAddingSku() {

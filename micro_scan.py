@@ -115,7 +115,9 @@ len(productURLs)
 #TODO: Understand why it fails here.
 
 def genProductDict(test_url):
+
     full_url = baseURL + test_url
+    
     productPage = requests.get(full_url)
     productSoup = BeautifulSoup(productPage.content, 'html.parser')
 
@@ -124,11 +126,16 @@ def genProductDict(test_url):
     details_span = details_header.find('span')
 
     price = productSoup.find(id='pricing')
+    print(full_url)
+    print(price.text)
+    input()
     try:
-        price_float = float(price.text.strip()[1:])
+        price_float = float(price.text.strip()[-1])
     except ValueError:
         price_float = 'Unknown'
     except AttributeError:
+        print("error: price no good", price.text, price_float)
+        input()
         price_float = 'Unknown_attrib'
     count = productSoup.find('span', class_='inventoryCnt')
     

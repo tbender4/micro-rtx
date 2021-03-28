@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const pug = require("ejs");
 const fs = require('fs');
-const { json } = require("express");
+
 const app = express();
 
 //allows json parsing and setting the js/css folder
@@ -27,6 +27,7 @@ function decrease(key) {
 
 let whitelisted = {};
 let products = {};
+let test = { '700914': products['700914'] };
 
 //send products json to ejs file
 app.get("/", (req, res) => {
@@ -34,7 +35,6 @@ app.get("/", (req, res) => {
   let whitelistedData = fs.readFileSync('whitelisted.json');
   products = JSON.parse(jsonData);
 
-  let test = { '099580': products['099580'] };
   
   res.render("index", {
   whitelisted: test,
@@ -47,7 +47,7 @@ app.get("/listall", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
 
   products = JSON.parse(jsonData);
-  let test = { '099580': products['099580'] };
+
   res.render("listall", {
   whitelisted: test,
   products: products
@@ -59,9 +59,9 @@ app.get("/addskus", (req, res) => {
   let jsonData = fs.readFileSync('products.json');
 
   products = JSON.parse(jsonData);
-  let test = { '099580': products['099580'] };
-
+  test =  { '700914': products['700914'] };
   res.render("addskus", {
+    products: products,
     whitelisted: test
   });
 });
@@ -76,9 +76,17 @@ app.post('/decrease', function(req, res) {
 app.post('/add', function(req, res) {
   console.log(req.body);
   //res.send('OK');
-  res.end();
+  res.end();  
 });
 
 app.listen(3000, () => {
   console.log("it's live");
+});
+
+//checks for SKU
+
+app.post('/querysku', function (req, res) {
+  console.log(req.body);
+
+  res.send('ok');
 });
