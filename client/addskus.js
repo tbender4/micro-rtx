@@ -10,23 +10,23 @@ function getSKUInfo() {
   let userSKU = document.getElementById("req-sku").value;
   let confirmSKUTr = document.getElementById("confirm-sku-tr");
 
-  fetch('/querysku', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify( {sku: userSKU } )
-  })
+  fetch('/querysku/' + userSKU )
   .then ( response => {
     console.log(response);
     if (response.ok) {
-      console.log(response.body);
-      console.log('did it work?')
+
+      console.log('response ok. Check below if the SKU came out')
+      response.json().then(data => {
+        console.log(data);
+
+      });
     }
     else {
       alert('sku query failed');
+      return;
     }
-  })
-  console.log(userSKU);
- 
+
+  });
 
   let skuTDs = confirmSKUTr.getElementsByTagName("td");
   console.log(skuTDs.length)

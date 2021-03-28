@@ -85,8 +85,7 @@ app.listen(3000, () => {
 
 //checks for SKU
 
-app.post('/querysku', function (req, res) {
-  console.log(req.body);
-
-  res.send('ok');
+app.get('/querysku/:sku', function (req, res) {
+  console.log(req.params);
+  res.json( {'test':'test2' } );
 });
