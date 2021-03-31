@@ -1,7 +1,19 @@
+/* global */
+
 body {
   font-family:'Roboto', sans-serif;
 }
 
+button {
+  font-size: 14px;
+  padding: 5px 5px;
+}
+img {
+  width: 100px;
+  height: auto;
+}
+
+/* nav */
 nav ul {
   display: flex;
 }
@@ -25,15 +37,7 @@ nav li:hover {
   background-color: #61637d;
 }
 
-button {
-  font-size: 14px;
-  padding: 5px 5px;
-}
-img {
-  width: 100px;
-  height: auto;
-}
-
+/* log window from listall.ejs */
 #log {
   width: 600px;
   height: 250px;
@@ -77,4 +81,10 @@ table {
 
 #result {
   display: flex;
+}
+
+input {
+  padding: 5px;
+  margin: 0px 5px;
+
 }

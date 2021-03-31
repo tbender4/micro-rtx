@@ -3,12 +3,17 @@
 //passed in: whitelisted = {}
 //           products    = {}
 //           
- 
+let confirmSKUTr = document.getElementById("confirm-sku-tr");
+let skuTDs = confirmSKUTr.getElementsByTagName("td");
+let searchBtn = document.getElementById('search-sku');
+let userSKUTextbox = document.getElementById("req-sku");
+
 function getSKUInfo() {
   //changes all TDs
+  clearAddingSku();
   
-  let userSKU = document.getElementById("req-sku").value;
-  let confirmSKUTr = document.getElementById("confirm-sku-tr");
+  let userSKU = userSKUTextbox.value;
+  
 
   fetch('/querysku/' + userSKU )
   .then ( response => {
@@ -16,43 +21,61 @@ function getSKUInfo() {
     if (response.ok) {
 
       console.log('response ok. Check below if the SKU came out')
-      response.json().then(data => {
-        console.log(data);
-
-      });
+      return response.json()
     }
     else {
       alert('sku query failed');
       return;
     }
+  })
+  .then(data => {
+        let sku_data = JSON.parse(data);
+        console.log(sku_data)
 
-  });
+        skuTDs[0].innerHTML = sku_data['sku'];
+        sku_img = document.createElement('img')
+        sku_img.src = sku_data['image'];
+        skuTDs[1].appendChild(sku_img);
+        skuTDs[2].innerHTML = sku_data["name"];
+        skuTDs[3].innerHTML = sku_data["price"];
+        skuTDs[4].innerHTML = sku_data["modelnum"];
+      
+        addSKUTable.hidden = false;
+        quantityDiv.hidden = false;
+        disableAddingSkuField();
+        
+        return;
+    });
+}
 
-  let skuTDs = confirmSKUTr.getElementsByTagName("td");
-  console.log(skuTDs.length)
-  console.log(skuTDs)
-  skuTDs[0].innerHTML = 'sku here';
-  skuTDs[1].innerHTML = "img-here";
-  skuTDs[2].innerHTML = "name-here";
-  skuTDs[3].innerHTML = "pricehere";
-  skuTDs[4].innerHTML = "modelhere";
 
-  addSKUTable.hidden = false;
-  quantityDiv.hidden = false;
+function clearAddingSku() {
+  for (i = 0; i < 5; i++)
+    skuTDs[i].innerHTML = '';
+  quantityDiv.hidden = true;
+  addSKUTable.hidden = true;
+}
 
-
+function disableAddingSkuField() {
+  searchBtn.disabled = true;
+  userSKUTextbox.disabled = true;
+}
+function enableAddingSkuField() {
+  searchBtn.disabled = false;
+  userSKUTextbox.disabled = false;
 }
 
 function cancelAddingSku() {
-  quantityDiv.hidden = true;
-  addSKUTable.hidden = true;
+  clearAddingSku();
+  enableAddingSkuField();
+
 }
 
 function confirmAddingSku() {
   //TODO: Implement SKU being added
-  console.log("SKU Added");
-  quantityDiv.hidden = true;
-  addSKUTable.hidden = true;
+  console.log("Implement SKU Added");
+  clearAddingSku();
+  enableAddingSkuField();
 }
 
 let todayDate = new Date(); //gets today's date

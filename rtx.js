@@ -86,6 +86,10 @@ app.listen(3000, () => {
 //checks for SKU
 
 app.get('/querysku/:sku', function (req, res) {
+  let queriedSKU = req.params.sku;
   console.log(req.params);
-  res.json( {'test':'test2' } );
+  let returnSKUJSON = JSON.stringify(products[queriedSKU]);
+  console.log(returnSKUJSON);
+  res.json(returnSKUJSON);
+  req.end();
 });
